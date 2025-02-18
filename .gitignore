@@ -1,0 +1,8 @@
+/target
+*.rs.bk
+*.log
+/hypraway
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
