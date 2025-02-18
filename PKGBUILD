@@ -10,8 +10,16 @@ url="https://github.com/canmi21/hypraway"
 license=('MIT')
 depends=('glibc')
 makedepends=('cargo')
-source=("git+https://github.com/canmi21/hypraway.git#branch=master" "LICENSE")
+
+source=("git+https://github.com/canmi21/hypraway.git#branch=master" 
+        "https://raw.githubusercontent.com/canmi21/hypraway/master/LICENSE")
+
 sha256sums=('SKIP' 'SKIP')
+
+prepare() {
+  cd "$srcdir"
+  mv hypraway hypraway-$pkgver
+}
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
@@ -20,30 +28,11 @@ build() {
 
 package() {
   cd "$srcdir/$pkgname-$pkgver"
+  mkdir -p "$pkgdir/etc/systemd/system"
   install -Dm755 target/release/hypraway "$pkgdir/usr/bin/hypraway"
-  local username=$(whoami)
-  cat <<EOF > "$pkgdir/etc/systemd/system/hypraway.service"
-[Unit]
-Description=Hypraway Service
-After=multi-user.target
-
-[Service]
-ExecStart=/usr/bin/hypraway
-WorkingDirectory=/home/$username
-Restart=always
-User=$username
-Group=$username
-Environment=RUST_LOG=info
-
-[Install]
-WantedBy=multi-user.target
-EOF
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-}
-
-post_install() {
   echo "Hypraway service has been installed."
-  echo "To enable and start the service, use the following commands:"
-  echo "  sudo systemctl enable hypraway.service"
-  echo "  sudo systemctl start hypraway.service"
+  echo "To add exec-one in you hyprland.conf"
+  echo "Also, you can check the config file:"
+  echo "  ~/.config/hypr/hypraway.conf"
 }

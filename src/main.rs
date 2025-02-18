@@ -117,33 +117,9 @@ battery:
         let mut last_battery_state = self.is_on_battery()?;
         let mut levels = if last_battery_state {
             println!("Running in Battery mode");
-            if self.enable_notifications {
-                let _ = std::process::Command::new("notify-send")
-                    .args([
-                        "-i",
-                        "/path/to/nonexistent/icon",
-                        "Hypraway",
-                        "Switched to Battery mode",
-                        "-t",
-                        "2100",
-                    ])
-                    .spawn();
-            }
             &self.battery
         } else {
             println!("Running in AC power mode");
-            if self.enable_notifications {
-                let _ = std::process::Command::new("notify-send")
-                    .args([
-                        "-i",
-                        "/path/to/nonexistent/icon",
-                        "Hypraway",
-                        "Switched to AC power mode",
-                        "-t",
-                        "2100",
-                    ])
-                    .spawn();
-            }
             &self.ac
         };
 
@@ -177,33 +153,9 @@ battery:
                     last_battery_state = current_battery_state;
                     levels = if current_battery_state {
                         println!("Switching to Battery mode");
-                        if self.enable_notifications {
-                            let _ = std::process::Command::new("notify-send")
-                                .args([
-                                    "-i",
-                                    "/path/to/nonexistent/icon",
-                                    "Hypraway",
-                                    "Switched to Battery mode",
-                                    "-t",
-                                    "2100",
-                                ])
-                                .spawn();
-                        }
                         &self.battery
                     } else {
                         println!("Switching to AC power mode");
-                        if self.enable_notifications {
-                            let _ = std::process::Command::new("notify-send")
-                                .args([
-                                    "-i",
-                                    "/path/to/nonexistent/icon",
-                                    "Hypraway",
-                                    "Switched to AC power mode",
-                                    "-t",
-                                    "2100",
-                                ])
-                                .spawn();
-                        }
                         &self.ac
                     };
 
