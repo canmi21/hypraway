@@ -116,10 +116,14 @@ battery:
     async fn run(&self) -> Result<()> {
         let mut last_battery_state = self.is_on_battery()?;
         let mut levels = if last_battery_state {
-            println!("Running in Battery mode");
+            if self.enable_notifications {
+                println!("Running in Battery mode");
+            }
             &self.battery
         } else {
-            println!("Running in AC power mode");
+            if self.enable_notifications {
+                println!("Running in AC power mode");
+            }
             &self.ac
         };
 
@@ -152,10 +156,14 @@ battery:
                 if current_battery_state != last_battery_state {
                     last_battery_state = current_battery_state;
                     levels = if current_battery_state {
-                        println!("Switching to Battery mode");
+                        if self.enable_notifications {
+                            println!("Switching to Battery mode");
+                        }
                         &self.battery
                     } else {
-                        println!("Switching to AC power mode");
+                        if self.enable_notifications {
+                            println!("Switching to AC power mode");
+                        }
                         &self.ac
                     };
 
