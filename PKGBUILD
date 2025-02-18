@@ -8,7 +8,7 @@ pkgdesc="Lock screen automatically when you leave."
 arch=('x86_64')
 url="https://github.com/canmi21/hypraway"
 license=('MIT')
-depends=('glibc')
+depends=('glibc' 'swayidle' 'hyprland' 'hyprlock')
 makedepends=('cargo')
 
 source=("git+https://github.com/canmi21/hypraway.git#branch=master" 
