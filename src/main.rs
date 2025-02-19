@@ -158,11 +158,31 @@ battery:
                     levels = if current_battery_state {
                         if self.enable_notifications {
                             println!("Switching to Battery mode");
+                            let _ = std::process::Command::new("notify-send")
+                                .args([
+                                    "-i",
+                                    "/path/to/nonexistent/icon",
+                                    "Hypraway",
+                                    "-t",
+                                    "2100",
+                                    "Switched to Battery Power Mode"
+                                ])
+                                .spawn();
                         }
                         &self.battery
                     } else {
                         if self.enable_notifications {
                             println!("Switching to AC power mode");
+                            let _ = std::process::Command::new("notify-send")
+                                .args([
+                                    "-i", 
+                                    "/path/to/nonexistent/icon",
+                                    "Hypraway",
+                                    "-t",
+                                    "2100", 
+                                    "Switched to AC Power Mode"
+                                ])
+                                .spawn();
                         }
                         &self.ac
                     };
