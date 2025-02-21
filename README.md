@@ -31,7 +31,7 @@ makepkg -si
 Once installed, you need to add **hypraway** to your Hyprland configuration. You can do this by adding the following line to your `hyprland.conf`:
 
 ```ini
-exec-once = hypraway
+exec-once = hypraway &
 ```
 
 This will start **hypraway** automatically when your session starts.
